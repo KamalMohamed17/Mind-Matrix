@@ -1,0 +1,35 @@
+.app {
+  padding: 20px;
+  font-family: Arial;
+}
+
+.controls button {
+  margin-right: 5px;
+}
+
+.input-panel input {
+  margin-right: 6px;
+  padding: 4px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 40px);
+}
+
+.cell {
+  border: 1px solid #444;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell.active {
+  background: orange;
+}
+
+.description {
+  margin-top: 10px;
+  font-weight: bold;
+}

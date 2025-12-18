@@ -1,0 +1,19 @@
+.container {
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 40px);
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.cell {
+  border: 1px solid #444;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background: #e3f2fd;
+  font-weight: bold;
+}

@@ -1,13 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>mind-matrix</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Visualizer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1 class="header-title">Algorithm Visualizer</h1>
+        <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+            <span class="moon-icon">🌙</span>
+            <span class="sun-icon">☀️</span>
+        </button>
+    </header>
+
+    <!-- Algorithm Selector -->
+    <section class="algorithm-selector">
+        <button class="alg-btn active" data-algorithm="lcs">LCS</button>
+        <button class="alg-btn" data-algorithm="knapsack">Knapsack</button>
+        <button class="alg-btn" data-algorithm="bfs">BFS</button>
+        <button class="alg-btn" data-algorithm="astar">A*</button>
+    </section>
+
+    <!-- Description Panel -->
+    <section class="description-panel">
+        <p id="algorithmDescription">Select an algorithm to begin visualization.</p>
+    </section>
+
+    <!-- Main Visualization Area -->
+    <main class="visualization-container">
+        <div id="visualizationArea" class="visualization-area">
+            <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                Select an algorithm and click "Start Visualization" to begin
+            </div>
+        </div>
+    </main>
+
+    <!-- Explanation Panel -->
+    <section class="explanation-panel">
+        <h3>Step Explanation</h3>
+        <div id="explanationText" class="explanation-text">
+            Ready to start visualization...
+        </div>
+    </section>
+
+    <!-- Control Panel -->
+    <section class="control-panel">
+        <div class="controls-row">
+            <button class="control-btn" id="startBtn">▶ Start</button>
+            <button class="control-btn" id="nextBtn">⏭ Next Step</button>
+            <button class="control-btn" id="pauseBtn" disabled>⏸ Pause</button>
+            <button class="control-btn" id="resetBtn">🔁 Reset</button>
+        </div>
+        <div class="controls-row">
+            <label for="speedSlider" class="speed-label">Speed:</label>
+            <input type="range" id="speedSlider" class="speed-slider" min="1" max="10" value="5">
+            <span id="speedValue" class="speed-value">5</span>
+        </div>
+        <div class="controls-row">
+            <label class="checkbox-label">
+                <input type="checkbox" id="stepModeToggle">
+                Step-by-step mode
+            </label>
+        </div>
+    </section>
+
+    <!-- LCS Input Form (Hidden by default) -->
+    <div id="lcsInputForm" class="input-form hidden">
+        <h3>LCS Parameters</h3>
+        <div class="form-group">
+            <label>String 1:</label>
+            <input type="text" id="lcsString1" value="ABCDGH" placeholder="Enter string 1">
+        </div>
+        <div class="form-group">
+            <label>String 2:</label>
+            <input type="text" id="lcsString2" value="AEDFHR" placeholder="Enter string 2">
+        </div>
+        <button class="submit-btn" id="lcsSubmitBtn">Start Visualization</button>
+    </div>
+
+    <!-- Knapsack Input Form (Hidden by default) -->
+    <div id="knapsackInputForm" class="input-form hidden">
+        <h3>Knapsack Parameters</h3>
+        <div class="form-group">
+            <label>Capacity:</label>
+            <input type="number" id="knapsackCapacity" value="7" min="1" max="20">
+        </div>
+        <div class="form-group">
+            <label>Items (weight,value):</label>
+            <textarea id="knapsackItems" rows="4" placeholder="1,10&#10;3,40&#10;4,50&#10;5,70">1,10
+3,40
+4,50
+5,70</textarea>
+        </div>
+        <button class="submit-btn" id="knapsackSubmitBtn">Start Visualization</button>
+    </div>
+
+    <!-- BFS Input Form (Hidden by default) -->
+    <div id="bfsInputForm" class="input-form hidden">
+        <h3>BFS Parameters</h3>
+        <div class="form-group">
+            <label>Graph Size (rows x cols):</label>
+            <input type="number" id="bfsRows" value="5" min="3" max="10">
+            <span>x</span>
+            <input type="number" id="bfsCols" value="5" min="3" max="10">
+        </div>
+        <div class="form-group">
+            <label>Start Node:</label>
+            <input type="number" id="bfsStart" value="0" min="0">
+        </div>
+        <button class="submit-btn" id="bfsSubmitBtn">Start Visualization</button>
+    </div>
+
+    <!-- A* Input Form (Hidden by default) -->
+    <div id="astarInputForm" class="input-form hidden">
+        <h3>A* Parameters</h3>
+        <div class="form-group">
+            <label>Grid Size (rows x cols):</label>
+            <input type="number" id="astarRows" value="10" min="5" max="15">
+            <span>x</span>
+            <input type="number" id="astarCols" value="10" min="5" max="15">
+        </div>
+        <div class="form-group">
+            <label>Start: (<input type="number" id="astarStartRow" value="0" min="0">, <input type="number" id="astarStartCol" value="0" min="0">)</label>
+        </div>
+        <div class="form-group">
+            <label>Goal: (<input type="number" id="astarGoalRow" value="9" min="0">, <input type="number" id="astarGoalCol" value="9" min="0">)</label>
+        </div>
+        <p class="info-text">Click on grid cells to toggle obstacles after starting</p>
+        <button class="submit-btn" id="astarSubmitBtn">Start Visualization</button>
+    </div>
+
+    <script src="algorithms.js"></script>
+    <script src="visualizer.js"></script>
+    <script src="main.js"></script>
+</body>
 </html>
+
